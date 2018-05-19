@@ -1,29 +1,15 @@
-FROM golang
+FROM node:8.9
 
-WORKDIR /go
+COPY package.json .
 
-RUN go get github.com/graphql-go/graphql
-RUN go get github.com/cespare/reflex
+# install CLI stuff globally
+RUN npm install -g  nodemon@1.17.x
+RUN npm install -g  webpack@3.10.x
+RUN npm install -g  npm-run-all@4.1.x
+RUN npm install
 
-CMD reflex --decoration=none --start-service -r "\.go$" -- sh -c 'go install main && /go/bin/main'
+WORKDIR /usr/src/app
 
+COPY . .
 
-# # build stage
-# FROM golang:1.10 AS build-env
-#
-# ADD . /src
-#
-# RUN cd /src \
-#     && go get github.com/graphql-go/graphql \
-#     && go get github.com/cespare/reflex \
-#     && go build -o goapp
-# # RUN cd /src && go build -o goapp
-#
-# # final stage
-# FROM alpine
-#
-# WORKDIR /app
-#
-# COPY --from=build-env /src/goapp /app/
-#
-# ENTRYPOINT ./goapp
+CMD npm run ${APP_ENV}
