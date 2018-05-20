@@ -1,0 +1,84 @@
+button
+    color: $accent
+    transition: $transition-28 all
+    padding: 9px 16px
+    min-width: 90px
+    margin: 10px
+    border-radius: 3px
+    background-color: rgba(#FFFFFF, 0)
+    align-self: center
+    position: relative
+    // &:hover
+    //     background-color: rgba(#FFFFFF, 0.08)
+    &::before
+        content: ""
+        pointer-events: none
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%) scale(1.11)
+        background-color: rgba(#FFFFFF, 0)
+        border-radius: 3px
+        transition: $transition-28 all
+    &:hover::before, &.focus-within::before
+        transform: translate(-50%, -50%) scale(1)
+        background-color: rgba(#FFFFFF, 0.08)
+    &:focus
+        // color: rgba(#FFFFFF, 0.8)
+    &.button-click::before
+        transform: translate(-50%, -50%) scale(0.9)
+        background-color: rgba(#FFFFFF, 0)
+    &.focus-within::before
+        // transform: translate(-50%, -50%) scale(1)
+        // background-color: rgba(#FFFFFF, 0.12)
+
+.label
+    color: white
+    text-align: left
+    font-size: 14px
+.input-container
+    margin: 10px
+    display: block
+    position: relative
+    input
+        background-color: transparent
+        color: rgba($white, 0.9)
+        width: 250px
+        padding: 12px 18px
+        font-size: 14px
+        &::placeholder
+            color: rgba(#FFFFFF, 0.4)
+    &::before
+        content: ""
+        pointer-events: none
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        background-color: rgba(#FFFFFF, 0.08)
+        border-radius: 3px
+        transition: $transition-28 all
+    &:hover::before, &.focus-within::before
+        transform: translate(-50%, -50%) scale(0.95)
+        background-color: rgba(#FFFFFF, 0)
+    &::after
+        content: ""
+        pointer-events: none
+        position: absolute
+        width: 100%
+        height: 2px
+        bottom: 0px
+        left: 50%
+        transform: translate(-50%, 0px)
+        border-radius: 3px
+        transition: $transition-28 all
+        background-color: rgba(#FFFFFF, 0)
+    &:hover::after, &.focus-within::after
+        transform: translate(-50%, -50%) scaleX(0.95)
+        background-color: rgba(#FFFFFF, 0.25)
+    &.focus-within::after
+        background-color: rgba($accent, 0.75)

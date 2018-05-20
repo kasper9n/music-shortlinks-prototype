@@ -1,0 +1,57 @@
+
+// =clickable($color, $base-opacity: 0, $scalePercent: 1)
+//     $scaleDivider: 1/$scalePercent
+//     .bg::before
+//         background-color: rgba($color, $base-opacity + 0.12)
+//     &:hover .bg::before
+//         background-color: rgba($color, $base-opacity + 0.12 + 0.06/$scaleDivider)
+//         transform: scale(1 - 0.1/$scaleDivider)
+//     &:focus .bg, &.focus-within .bg
+//         transform: scaleY(0.05)
+//     &.focus-within .bg::before
+//         background-color: rgba($color, $base-opacity + 0.12 + 0.24)
+//         // height: 5%
+//         // transform: scale(1 - 0.25, 1.0)
+//         transform: scale(1 - 0, 1.0)
+//     &.focus-within:hover .bg::before
+//         background-color: rgba($color, $base-opacity + 0.12 + 0.24)
+//         // transform: scale(1 - 0.4, 1.0)
+//         transform: scale(1 - 0.1/$scaleDivider, 1.0)
+//
+// .input-container
+//     margin: 15px
+//     +clickable(#FFFFFF, 0, 0.3)
+//     position: relative
+//     background-color: transparent
+//     .bg
+//         transform-origin: bottom
+//         transition: $transition-28 all
+//         position: absolute
+//         pointer-events: none
+//         bottom: 0px
+//         left: 0px
+//         width: 100%
+//         height: 100%
+//         &::before
+//             content: ""
+//             position: absolute
+//             width: 100%
+//             height: 100%
+//             transition: $transition-28 all
+//             bottom: 0px
+//             left: 0px
+//             border-radius: 5px
+//     input
+//         width: 250px
+//         border: none
+//         // background-color: rgba(#FFFFFF, 0.1)
+//         background-color: transparent
+//         border-radius: 3px
+//         padding: 13px
+//         font-size: 14px
+//         color: white
+//         transition: opacity $transition-15
+//         &::placeholder
+//             color: rgba(#FFFFFF, 0.4)
+//             &.locked
+//                 opacity: 0.5

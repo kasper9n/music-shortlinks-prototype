@@ -1,6 +1,11 @@
+global.Error.stackTraceLimit = 50;
 "use strict";
 const express = require("express");
 const path = require("path");
+global.requireLocal = (filePath) => {
+    return require(path.resolve(__dirname, "node", filePath));
+}
+const keys = requireLocal("keys");
 global.dir = (...paths) => {
     return path.resolve(__dirname, ...paths);
 }
@@ -36,7 +41,38 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log(dbSuc+"connected to MongoDB");
 });
+// console.log(mongoose);
 
+// passport
+require("./node/passport.js")(app, mongoose);
+
+// jwt auth
+app.use((req, res, next) => {
+    const token = req.headers.authentication;
+    if (token) {
+        jwt.verify(token, keys.jsonWebTokenSecret, (err, jwtData) => {
+            if (err) {
+                req.userId = null;
+                req.loggedIn = false;
+            } else {
+                req.userId = jwtData.userId;
+                req.loggedIn = true;
+            }
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
+app.renderPage = (res, file) => {
+    console.log(file);
+    app.render(file, res.variables, (err, html) => {
+        if (err) return;
+        res.variables.pageHTML = html;
+        res.render("template", res.variables);
+    });
+};
 const fs = require("fs");
 function recursiveReaddir(folder, callback) {
     fs.readdir(folder, (err, items) => {
@@ -51,13 +87,7 @@ function recursiveReaddir(folder, callback) {
     });
 }
 recursiveReaddir("node/routes", (filePath) => {
-    const file = require("./"+filePath);
-    let route = filePath.replace(/^(node\/routes)/, "");
-    route = route.replace(/(\.js)$/, "");
-    route = route.replace(/(index)$/, "");
-    for (const method in file) {
-        app[method](route, file[method]);
-    }
+    require("./"+filePath)(app);
 });
 
 const PORT_WEB = process.env.PORT_WEB;
