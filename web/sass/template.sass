@@ -2,29 +2,33 @@ html
     font-family: "Rubik", sans-serif
     -webkit-font-smoothing: antialiased
 body
-    width: 100%
-    height: 100%
-main.page-container
-    width: 100%
-    height: 100%
     position: absolute
-    // background: linear-gradient($gray-light, $gray)
+    width: 100%
+    height: 100%
     background-color: $gray
-$header-height: 80px
-body.logged-in
     main.page-container
-        height: calc(100% - #{$header-height})
+        width: 100%
+    &.logged-in
+        main.page-container
+            height: calc(100% - #{$header-height})
+    &.logged-out
+        main.page-container
+            height: 100%
 .page-width
     min-width: 800px
 header.page-header
     box-sizing: border-box
     width: 100%
     height: $header-height
-    background-color: $gray
     display: flex
     align-items: center
-    padding: 10px 20px
+    font-size: 16px
+    padding: 10px 10px
     .logo
-    .header-tab
-        font-size: 16px
-        
+        padding: 10px
+    .nav-menu
+        display: flex
+        justify-content: center
+        width: 100%
+    .user-menu
+        display: flex

@@ -1,0 +1,21 @@
+.tab
+    padding: 10px
+    position: relative
+    cursor: pointer
+    &::after
+        content: ""
+        pointer-events: none
+        position: absolute
+        width: 100%
+        height: 2px
+        bottom: 0px
+        left: 50%
+        transform: translate(-50%, 0px)
+        border-radius: 3px
+        transition: $transition-28 all
+        background-color: rgba(#FFFFFF, 0)
+    &:hover::after, &:focus::after
+        transform: translate(-50%, -50%) scaleX(0.95)
+        background-color: rgba(#FFFFFF, 0.25)
+    &:focus::after
+        background-color: rgba($accent, 0.75)

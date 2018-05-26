@@ -4,6 +4,7 @@ module.exports = (app) => {
     app.renderPage = (res, file) => {
         const variables = res.locals;
         variables.page = file;
+        variables.random = Math.ceil(Math.random()*1000);
         app.render(file, variables, (err, html) => {
             if (err) return;
             variables.pageHTML = html;

@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const globImporter = require("node-sass-glob-importer");
 
 let ifDev = false;
 let ifProduction = true;
@@ -59,7 +60,10 @@ module.exports = [
                             }
                         },
                         {
-                            loader: "sass-loader"
+                            loader: "sass-loader",
+                            options: {
+                                importer: globImporter(),
+                            }
                         }
                     ]
                 })

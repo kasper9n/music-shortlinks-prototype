@@ -12,11 +12,13 @@ html
         body.logged-in
             header.page-header
                 h2.logo Sacral
-                .header-tab.current-page Links
-                .header-tab Settings
-                .header-tab Logout
+                .nav-menu
+                    .tab.current-page(tabindex=0) Links
+                .user-menu
+                    .tab(tabindex=0) Settings
+                    .tab(tabindex=0) Logout
             main.page-container !{pageHTML}
     script
         | window.loggedIn = !{loggedIn};
         | window.page = "!{page}";
-    script(src="/global.js?r=5")
+    script(src="/global.js?r="+random)
