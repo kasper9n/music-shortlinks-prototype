@@ -24,13 +24,13 @@ passport.use(new LocalStrategy({
             {username: usernameOrEmail.toLowerCase()},
         ],
     }, (err, resultUser) => {
-        // done(user, code, msg, err)
-        if (err) return done(null, 2010, null, err);
-        if (!resultUser) return done(null, 1010, "No user has that username or email");
+        // done(err, user, info)
+        if (err) return done(err, false, {code:2010});
+        if (!resultUser) return done(null, false, {code:1010, message:"No user has that username or email"});
         bcrypt.compare(password, resultUser.password, (err, isMatch) => {
-            if (err) return done(null, 2011, err);
-            if (!isMatch) return done(null, 1011, "Incorrect password");
-            done(resultUser);
+            if (err) return done(err, false, {code:2011});
+            if (!isMatch) return done(null, false, {code:1011,message:"Incorrect password"});
+            done(null, resultUser);
         });
         // if (err) return done(2001, err);
         // if (!resultUser) return done(1010, "No user has that username or email");

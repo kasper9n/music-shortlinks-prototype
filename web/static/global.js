@@ -189,17 +189,35 @@ document.addEventListener("mouseup", function (e) {
 "use strict";
 
 
+// login
+function login() {
+    var usernameOrEmail = document.querySelector("input.username-or-email").value;
+    var password = document.querySelector("input.password").value;
+    var req = {
+        usernameOrEmail: usernameOrEmail,
+        password: password
+    };
+    xhr(req, "/login", function (res) {
+        if (res.err) {
+            console.log(res);
+        } else {
+            window.location = "/user";
+        }
+    });
+}
+// login button click
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("login")) {
-        var usernameOrEmail = document.querySelector("input.username-or-email").value;
-        var password = document.querySelector("input.password").value;
-        var req = {
-            usernameOrEmail: usernameOrEmail,
-            password: password
-        };
-        xhr(req, "/login", function (res) {
-            console.log(res);
-        });
+        login();
+    }
+});
+// login page enter
+document.addEventListener("keypress", function (e) {
+    if (page == "login") {
+        if (e.which == 13) {
+            // enter
+            login();
+        }
     }
 });
 

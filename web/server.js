@@ -1,45 +1,11 @@
 "use strict";
-global.Error.stackTraceLimit = 50;
-
-function addColor(name, start, end = "\x1b[0m") {
-    global.String.prototype.__defineGetter__(name, function() {
-        let str = this;
-        str.replace("\n", end+start);
-        if (this.endsWith(end)) str= start+this;
-        else str = start+this+end;
-        return str;
+require("colorboy")
+    .addDefaults()
+    .addColor("errColor", {
+        color: "red",
+        style: "bold",
     });
-}
-addColor("red", "\x1b[41m");
-addColor("cyan", "\x1b[36m");
-addColor("bright", "\x1b[1m");
-console.log("hey".bright.cyan);
-
-// Reset = "\x1b[0m"
-// Bright = "\x1b[1m"
-// Dim = "\x1b[2m"
-// Underscore = "\x1b[4m"
-// Blink = "\x1b[5m"
-// Reverse = "\x1b[7m"
-// Hidden = "\x1b[8m"
-//
-// FgBlack = "\x1b[30m"
-// FgRed = "\x1b[31m"
-// FgGreen = "\x1b[32m"
-// FgYellow = "\x1b[33m"
-// FgBlue = "\x1b[34m"
-// FgMagenta = "\x1b[35m"
-// FgCyan = "\x1b[36m"
-// FgWhite = "\x1b[37m"
-//
-// BgBlack = "\x1b[40m"
-// BgRed = "\x1b[41m"
-// BgGreen = "\x1b[42m"
-// BgYellow = "\x1b[43m"
-// BgBlue = "\x1b[44m"
-// BgMagenta = "\x1b[45m"
-// BgCyan = "\x1b[46m"
-// BgWhite = "\x1b[47m"
+global.Error.stackTraceLimit = 20;
 
 const express = require("express");
 const path = require("path");
@@ -82,38 +48,10 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log(dbSuc+"connected to MongoDB");
 });
-// console.log(mongoose);
 
 // passport
 require("./node/passport.js")(app, mongoose);
 
-// jwt auth
-app.use((req, res, next) => {
-    const token = req.headers.authentication;
-    if (token) {
-        jwt.verify(token, keys.jsonWebTokenSecret, (err, jwtData) => {
-            if (err) {
-                req.userId = null;
-                req.loggedIn = false;
-            } else {
-                req.userId = jwtData.userId;
-                req.loggedIn = true;
-            }
-            next();
-        });
-    } else {
-        next();
-    }
-});
-
-app.renderPage = (res, file) => {
-    console.log(file);
-    app.render(file, res.variables, (err, html) => {
-        if (err) return;
-        res.variables.pageHTML = html;
-        res.render("template", res.variables);
-    });
-};
 const fs = require("fs");
 function recursiveReaddir(folder, callback) {
     fs.readdir(folder, (err, items) => {
