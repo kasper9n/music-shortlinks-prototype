@@ -13,10 +13,10 @@ html
             header.page-header
                 h2.logo Sacral
                 .nav-menu
-                    .tab.current-page(tabindex=0) Links
+                    a.tab.current-page(tabindex=0 href="/user/links") Links
                 .user-menu
-                    .tab(tabindex=0) Settings
-                    .tab(tabindex=0) Logout
+                    a.tab(tabindex=0 href="/user/settings") Settings
+                    a.tab(tabindex=0 href="/logout") Logout
             main.page-container !{pageHTML}
     script
         | window.loggedIn = !{loggedIn};

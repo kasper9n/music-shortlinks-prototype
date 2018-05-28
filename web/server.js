@@ -1,10 +1,6 @@
 "use strict";
 require("colorboy")
     .addDefaults()
-    .addColor("errColor", {
-        color: "red",
-        style: "bold",
-    });
 global.Error.stackTraceLimit = 20;
 
 const express = require("express");
@@ -52,22 +48,7 @@ db.once("open", () => {
 // passport
 require("./node/passport.js")(app, mongoose);
 
-const fs = require("fs");
-function recursiveReaddir(folder, callback) {
-    fs.readdir(folder, (err, items) => {
-        if (err) return logErr(101, "Error reading routes folder");
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].endsWith(".js")) {
-                callback(`${folder}/${items[i]}`);
-            } else {
-                recursiveReaddir(`${folder}/${items[i]}`, callback);
-            }
-        }
-    });
-}
-recursiveReaddir("node/routes", (filePath) => {
-    require("./"+filePath)(app);
-});
+requireLocal("routes.js")(app);
 
 const PORT_WEB = process.env.PORT_WEB;
 app.listen(PORT_WEB, () => {

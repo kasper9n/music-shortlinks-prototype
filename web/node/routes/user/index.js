@@ -1,6 +1,13 @@
 module.exports = (app) => {
+
+    app.use("/user", (req, res, next) => {
+        if (req.method == "GET") {
+            if (!res.locals.loggedIn) return res.redirect("/login");
+            next();
+        }
+    });
+
     app.get("/user", (req, res) => {
-        if (!res.locals.loggedIn) return res.redirect("/login");
         app.renderPage(res, "user");
     });
 }
