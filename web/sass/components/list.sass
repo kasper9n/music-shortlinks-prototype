@@ -1,0 +1,45 @@
+.list
+    width: 100%
+    box-sizing: border-box
+    .list-item
+        box-sizing: border-box
+        width: calc(50% - 20px*2)
+        margin: 20px
+        $cover-size: 120px
+        height: $cover-size
+        background-color: rgba(#FFFFFF, 0.08)
+        position: relative
+        display: flex
+        float: left
+        border-radius: 4px
+        .cover
+            width: $cover-size
+            height: $cover-size
+            border-top-left-radius: 3px
+            border-bottom-left-radius: 3px
+        .info
+            padding: 10px
+            box-sizing: border-box
+            width: calc(100% - #{$cover-size})
+            display: flex
+            flex-direction: column
+            .title
+                $fontsize: 18px
+                font-size: $fontsize
+                float: left
+                line-height: calc(#{$fontsize}*1.25)
+                max-height: calc(#{$fontsize}*1.25*2)
+                overflow: hidden
+            span
+                font-weight: 500
+            .clicks, .click-through
+                font-size: 14px
+                color: rgba(#FFFFFF, 0.75)
+            .list-link
+                color: rgba(#FFFFFF, 0.5)
+                margin-top: auto
+                font-size: 14px
+                font-weight: 400
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis

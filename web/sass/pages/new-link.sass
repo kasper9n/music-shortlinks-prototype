@@ -1,0 +1,52 @@
+.new-link-page
+    padding-right: 20px
+    padding-left: 20px
+    padding-bottom: 20px
+    .cols
+        max-width: 1000px
+        margin: auto
+        display: flex
+        box-sizing: border-box
+        .col
+            width: 100%
+            padding: 10px
+            .fetched-data-container
+                display: flex
+                height: 146px
+                margin-bottom: 10px
+                .cover
+                    height: 100%
+                    margin-right: 20px
+                .text-container
+                    display: flex
+                    flex-direction: column
+                    justify-content: center
+                    .title
+                        font-size: 18px
+                    .artist
+                        font-size: 14px
+                        color: rgba(#D1D1D1, 0.9)
+            select
+                background-color: rgba(#FFFFFF, 0.08)
+                border: none
+                color: white
+                font-size: 14px
+                margin: 10px
+                padding-top: 12px
+                padding-bottom: 12px
+                padding-left: 18px
+                padding-right: calc(18px + 12px)
+                appearance: none
+                -webkit-appearance: none
+                -moz-appearance: none
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23FFFFFF" width="24" height="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>')
+                background-repeat: no-repeat
+                background-position: calc(100% - 3px) center
+            .result-link
+                color: $accent
+                margin: 10px
+                display: inline-block
+    button.new-link-save
+        display: block
+        margin-left: auto
+        margin-right: auto

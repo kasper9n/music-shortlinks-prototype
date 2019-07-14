@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const db = requireLocal("mongoose-models");
 const keys = requireLocal("keys");
 
 module.exports = (app) => {

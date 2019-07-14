@@ -1,0 +1,44 @@
+.new-link-page
+    h1.page-title New link
+    .cols
+        .col.col-1
+            .fetched-data-container
+                img.cover(src="https://i1.sndcdn.com/artworks-000344237187-ykfcx6-t500x500.jpg")
+                .text-container
+                    .title Ghost
+                    .artist Galvanic
+            .label Source URL (SoundCloud)
+            .input-container
+                input.source-url(type="text" placeholder="URL")
+            .label Link domain
+            select.select-domain
+                option(value="sacr.cf") sacr.cf
+                option(value="" disabled) Contact us if you want your own
+            .label Link path
+            .input-container
+                input.link-path(type="text" placeholder="song")
+            .label Your link will be
+            .result-link https://sacr.cf/
+        .col.col-2
+            .label Spotify
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="Spotify")
+            .label iTunes or Apple Music
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="iTunes or Apple Music")
+            .label Google Play Music
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="Google Play Music")
+            .label Beatport
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="Beatport")
+            .label SoundCloud
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="SoundCloud")
+            .label YouTube
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="YouTube")
+            .label Free Download
+            .input-container
+                input.source-url(type="text" placeholder="URL" data-service="Free Download")
+    button.new-link-save Save

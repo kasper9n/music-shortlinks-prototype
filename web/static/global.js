@@ -75,6 +75,8 @@ __webpack_require__(2)("focus-within");
 __webpack_require__(3);
 
 __webpack_require__(4);
+__webpack_require__(5);
+__webpack_require__(6);
 
 /***/ }),
 /* 1 */
@@ -218,6 +220,95 @@ document.addEventListener("keypress", function (e) {
             // enter
             login();
         }
+    }
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("list-link")) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(e.target);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+});
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// select result link text on click
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("result-link")) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(e.target);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+});
+
+document.addEventListener("input", function (e) {
+    // link path regex
+    if (e.target.nodeName == "INPUT" && e.target.classList.contains("link-path")) {
+        var pathInput = document.querySelector("input.link-path");
+        var path = pathInput.value;
+        var newPath = path.replace(/[^a-zA-Z0-9_-]/g, "");
+        if (newPath != path) pathInput.value = newPath;
+    }
+    // update result link
+    if (e.target.nodeName == "SELECT" && e.target.classList.contains("select-domain") || e.target.nodeName == "INPUT" && e.target.classList.contains("link-path")) {
+        var resultLink = document.querySelector(".result-link");
+        var domain = document.querySelector("select.select-domain").value;
+        var _path = document.querySelector("input.link-path").value;
+        resultLink.innerHTML = "https://" + domain + "/" + _path;
+    }
+});
+
+// fetch from SoundCloud
+
+
+// save
+function save() {
+    var req = {
+        title: document.querySelector(".fetched-data-container .title"),
+        artist: document.querySelector(".fetched-data-container .artist"),
+        coverURL: document.querySelector(".fetched-data-container .cover").getAttribute("src"),
+        sourceURL: document.querySelector("input.source-url").value,
+        linkDomain: document.querySelector("select.select-domain").value,
+        linkPath: document.querySelector("input.link-path").value,
+        urls: []
+    };
+    var urls = document.querySelectorAll("input[data-service]");
+    for (var i = 0; i < urls.length; i++) {
+        req.urls[i] = {
+            service: urls[i].dataset.service,
+            url: urls[i].value
+        };
+    }
+    console.log(req);
+    xhr(req, "/new-link", function (res) {
+        if (res.err) {
+            console.log(res);
+        } else {
+            // window.location = "/links";
+        }
+    });
+}
+// login button click
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("new-link-save")) {
+        save();
     }
 });
 
